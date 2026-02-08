@@ -59,14 +59,14 @@ double ATR_MA_Buffer[];     // ATR MA values
 //--- Indicator Handles
 int ema1_handle, ema2_handle, ema3_handle;
 int ema4_handle, ema5_handle, ema6_handle;
-int atr_handle, atr_ma_handle;
+int atr_handle;
 
 // Multi-timeframe handles
 int htf_ema1_handle, htf_ema2_handle, htf_ema3_handle;
 int htf_ema4_handle, htf_ema5_handle, htf_ema6_handle;
 int mtf_ema1_handle, mtf_ema2_handle, mtf_ema3_handle;
 int mtf_ema4_handle, mtf_ema5_handle, mtf_ema6_handle;
-int mtf_atr_handle, mtf_atr_ma_handle;
+int mtf_atr_handle;
 
 //--- Global Variables
 string dashboard_prefix = "MTF_Dashboard_";
@@ -152,9 +152,6 @@ int OnInit()
    
    atr_handle = iATR(_Symbol, LTF_Timeframe, ATR_Period);
    
-   // Create a custom ATR MA using iMA on ATR values
-   atr_ma_handle = iMA(_Symbol, LTF_Timeframe, ATR_MA_Period, 0, MODE_SMA, PRICE_CLOSE);
-   
    //--- Initialize HTF indicator handles
    htf_ema1_handle = iMA(_Symbol, HTF_Timeframe, EMA_Period_1, 0, MODE_EMA, PRICE_CLOSE);
    htf_ema2_handle = iMA(_Symbol, HTF_Timeframe, EMA_Period_2, 0, MODE_EMA, PRICE_CLOSE);
@@ -172,7 +169,6 @@ int OnInit()
    mtf_ema6_handle = iMA(_Symbol, MTF_Timeframe, EMA_Period_6, 0, MODE_EMA, PRICE_CLOSE);
    
    mtf_atr_handle = iATR(_Symbol, MTF_Timeframe, ATR_Period);
-   mtf_atr_ma_handle = iMA(_Symbol, MTF_Timeframe, ATR_MA_Period, 0, MODE_SMA, PRICE_CLOSE);
    
    //--- Check handles
    if(ema1_handle == INVALID_HANDLE || ema2_handle == INVALID_HANDLE || 
@@ -221,7 +217,6 @@ void OnDeinit(const int reason)
    if(ema5_handle != INVALID_HANDLE) IndicatorRelease(ema5_handle);
    if(ema6_handle != INVALID_HANDLE) IndicatorRelease(ema6_handle);
    if(atr_handle != INVALID_HANDLE) IndicatorRelease(atr_handle);
-   if(atr_ma_handle != INVALID_HANDLE) IndicatorRelease(atr_ma_handle);
    
    if(htf_ema1_handle != INVALID_HANDLE) IndicatorRelease(htf_ema1_handle);
    if(htf_ema2_handle != INVALID_HANDLE) IndicatorRelease(htf_ema2_handle);
@@ -237,7 +232,6 @@ void OnDeinit(const int reason)
    if(mtf_ema5_handle != INVALID_HANDLE) IndicatorRelease(mtf_ema5_handle);
    if(mtf_ema6_handle != INVALID_HANDLE) IndicatorRelease(mtf_ema6_handle);
    if(mtf_atr_handle != INVALID_HANDLE) IndicatorRelease(mtf_atr_handle);
-   if(mtf_atr_ma_handle != INVALID_HANDLE) IndicatorRelease(mtf_atr_ma_handle);
    
    //--- Delete dashboard objects
    DeleteDashboard();
@@ -329,7 +323,7 @@ int OnCalculate(const int rates_total,
    //--- Check for new signals on current bar (bar 0)
    if(Show_Arrows)
    {
-      CheckAndGenerateSignals(close, time);
+      CheckAndGenerateSignals(close, high, low, time);
    }
    
    //--- Update dashboard
@@ -345,7 +339,8 @@ int OnCalculate(const int rates_total,
 //+------------------------------------------------------------------+
 //| Check multi-timeframe alignment and generate signals             |
 //+------------------------------------------------------------------+
-void CheckAndGenerateSignals(const double &close[], const datetime &time[])
+void CheckAndGenerateSignals(const double &close[], const double &high[], 
+                             const double &low[], const datetime &time[])
 {
    //--- Get current bar data
    double htf_ema_vals[6], mtf_ema_vals[6], ltf_ema_vals[6];
@@ -451,7 +446,7 @@ void CheckAndGenerateSignals(const double &close[], const datetime &time[])
 //+------------------------------------------------------------------+
 void UpdateDashboard()
 {
-   //--- Dashboard coordinates (top-right corner)
+   //--- Dashboard coordinates (top-left corner)
    int x_pos = 20;
    int y_pos = 20;
    int line_height = 18;
@@ -608,14 +603,4 @@ void DeleteDashboard()
    ObjectDelete(0, dashboard_prefix + "ATR_VAL");
    ObjectDelete(0, dashboard_prefix + "SIGNAL");
 }
-
-//+------------------------------------------------------------------+
-//| Get low value from array                                         |
-//+------------------------------------------------------------------+
-double low[];
-
-//+------------------------------------------------------------------+
-//| Get high value from array                                        |
-//+------------------------------------------------------------------+
-double high[];
 //+------------------------------------------------------------------+

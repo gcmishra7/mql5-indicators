@@ -13,21 +13,6 @@
 //+------------------------------------------------------------------+
 
 //+------------------------------------------------------------------+
-//| Calculate EMA for a given period and store in buffer             |
-//| Parameters:                                                       |
-//|   period - EMA period                                            |
-//|   shift - bar shift to start calculation                         |
-//|   count - number of bars to calculate                            |
-//|   emaBuffer - array to store calculated EMA values               |
-//+------------------------------------------------------------------+
-void CalculateEMAArray(int period, int shift, int count, double &emaBuffer[])
-{
-   // This function is a placeholder for external indicator handle usage
-   // In MQL5, we use iMA() to get indicator handles
-   // The actual calculation is done via CopyBuffer in the main indicator
-}
-
-//+------------------------------------------------------------------+
 //| Check EMA cloud alignment                                         |
 //| Returns: 1 for bullish, -1 for bearish, 0 for neutral           |
 //| Parameters:                                                       |

@@ -13,39 +13,6 @@
 //+------------------------------------------------------------------+
 
 //+------------------------------------------------------------------+
-//| Calculate ATR value                                              |
-//| Returns: ATR value at specified shift                            |
-//| Parameters:                                                       |
-//|   period - ATR period                                            |
-//|   shift - bar shift (0 = current bar)                           |
-//| Note: In MQL5, use iATR() handle and CopyBuffer in main code    |
-//+------------------------------------------------------------------+
-double CalculateATR(int period, int shift)
-{
-   // This is a placeholder function
-   // In MQL5, ATR is calculated using iATR() indicator handle
-   // The actual value is retrieved via CopyBuffer() in the main indicator
-   return 0.0;
-}
-
-//+------------------------------------------------------------------+
-//| Calculate ATR moving average                                     |
-//| Returns: MA of ATR value at specified shift                      |
-//| Parameters:                                                       |
-//|   atrPeriod - ATR calculation period                            |
-//|   maPeriod - MA period for smoothing ATR                        |
-//|   shift - bar shift (0 = current bar)                           |
-//| Note: In MQL5, use iMA() on ATR values                          |
-//+------------------------------------------------------------------+
-double CalculateATR_MA(int atrPeriod, int maPeriod, int shift)
-{
-   // This is a placeholder function
-   // In MQL5, use iMA() on the ATR indicator handle
-   // The actual value is retrieved via CopyBuffer() in the main indicator
-   return 0.0;
-}
-
-//+------------------------------------------------------------------+
 //| Check if ATR filter is active (sufficient volatility)            |
 //| Returns: true if volatility is sufficient, false otherwise       |
 //| Parameters:                                                       |
