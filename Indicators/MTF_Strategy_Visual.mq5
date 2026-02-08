@@ -13,10 +13,10 @@
 #property indicator_plots 0  // No visible plots, all drawing via objects
 
 // Include custom libraries
-#include <../Include/EMACloud.mqh>
-#include <../Include/ATRFilter.mqh>
-#include <../Include/SignalDetector.mqh>
-#include <../Include/Dashboard.mqh>
+#include <EMACloud.mqh>
+#include <ATRFilter.mqh>
+#include <SignalDetector.mqh>
+#include <Dashboard.mqh>
 
 //--- Input Parameters
 
