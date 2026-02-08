@@ -1,0 +1,28 @@
+# MQL5 compiled files
+*.ex5
+*.ex4
+
+# MetaEditor temporary files
+*.tmp
+*.bak
+
+# Log files
+*.log
+
+# System files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE files
+.vscode/
+.idea/
+*.sublime-*
+
+# Temporary directories
+/tmp/
+temp/
+
+# Build artifacts
+/build/
+/dist/
